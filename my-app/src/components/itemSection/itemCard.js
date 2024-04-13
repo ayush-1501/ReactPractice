@@ -24,7 +24,7 @@ class ItemCard extends React.Component {
           />
         </StackItem>
         <StackItem>
-          <ItemDetails onAddToCart={this.props.onAddToCart} productDetails={this.props.productDetails} />
+          <ItemDetails onAddToCart={this.props.onAddToCart} productDetails={this.props.productDetails} stockAndDelivery={this.props.stockAndDelivery}/>
         </StackItem>
       </Stack>
     );

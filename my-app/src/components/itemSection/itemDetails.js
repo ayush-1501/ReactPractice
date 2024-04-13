@@ -4,6 +4,8 @@ import cart from "../../images/common/add-to-cart.png";
 import { OutOfStock, FastTrackDelivery } from "./presentationComponents";
 import useProductQuantity from "./useProductQuantity"; // Import the custom hook for quantity
 import useProductColor from "./useProductColor"; // Import the custom hook for color
+import { TbShoppingCartOff } from "react-icons/tb";
+import { FaTruckFast } from "react-icons/fa6";
 
 const priceTextStyles = mergeStyles({
   marginTop: "8px",
@@ -45,7 +47,10 @@ const ItemDetails = (props) => {
       <Text className={priceTextStyles} variant="xLarge" block>
         ${props.productDetails.price * quantity}
       </Text>
-      <Text block>Selected Color: {color}</Text> {/* Display the selected color */}
+      {
+        props.stockAndDelivery === 1 ? <Text><TbShoppingCartOff /> Out of stock!</Text> :
+          props.stockAndDelivery === 2 ? <Text><FaTruckFast /> Fast delivery!</Text> : null
+      }
     </>
   );
 
@@ -80,21 +85,25 @@ const ItemDetails = (props) => {
       </select>
 
       <div className={marginTop}>
-        <img
-          onClick={() => {
-            props.onAddToCart(
-              props.productDetails.id,
-              props.productDetails.name,
-              props.productDetails.description,
-              props.productDetails.price,
-              quantity,
-              color
-            );
-          }}
-          height="30px"
-          src={cart}
-          alt="Add to Cart"
-        />
+        {props.stockAndDelivery !== 1 ?
+          <img
+            onClick={() => {
+              props.onAddToCart(
+                props.productDetails.id,
+                props.productDetails.name,
+                props.productDetails.description,
+                props.productDetails.price,
+                quantity,
+                color
+              );
+            }}
+            height="30px"
+            src={cart}
+            alt="Add to Cart"
+          />
+          :
+          null
+        }
       </div>
     </>
   );
